@@ -32,6 +32,7 @@ dnf -y --enablerepo copr:copr.fedorainfracloud.org:mecattaf:harnessRPM install \
     bibata-cursor-themes \
     cliphist \
     eza \
+    gws \
     lisgd \
     mactahoe-oled \
     nwg-look \
