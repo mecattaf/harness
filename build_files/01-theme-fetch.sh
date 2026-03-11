@@ -196,7 +196,6 @@ dnf -y install \
     python3-ramalama \
     python3-requests \
     python3-setproctitle \
-    python3-toml \
     python3-watchdog \
     tesseract
 

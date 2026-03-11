@@ -10,6 +10,7 @@ trap 'dnf config-manager setopt keepcache=0' EXIT
 # Install custom repo files before installing packages from them
 cp /ctx/system_files/etc/yum.repos.d/tailscale.repo /etc/yum.repos.d/
 cp /ctx/system_files/etc/yum.repos.d/antigravity.repo /etc/yum.repos.d/
+cp /ctx/system_files/etc/yum.repos.d/google-cloud-cli.repo /etc/yum.repos.d/
 
 # Networking
 dnf -y install \
@@ -179,6 +180,11 @@ dnf -y install \
   wmctrl \
   ydotool \
   yt-dlp
+
+# Google Cloud CLI
+dnf -y install \
+  google-cloud-cli \
+  libxcrypt-compat
 
 # uupd from COPR
 dnf -y copr enable ublue-os/packages
