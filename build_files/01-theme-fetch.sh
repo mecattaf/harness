@@ -131,7 +131,6 @@ dnf -y install \
     fontawesome-fonts-all \
     glibc-all-langpacks \
     gnome-icon-theme \
-    gnome-themes-extra \
     google-noto-color-emoji-fonts \
     google-noto-emoji-fonts \
     google-noto-fonts-common \
@@ -200,6 +199,12 @@ dnf -y install \
     python3-toml \
     python3-watchdog \
     tesseract
+
+# Intel VA-API
+dnf -y install \
+    libva \
+    libva-utils \
+    libva-intel-media-driver
 
 # Benchmarking
 dnf -y install radeontop
