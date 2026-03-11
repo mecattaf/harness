@@ -1,0 +1,11 @@
+[Unit]
+Description=Initializes Chezmoi if directory is missing
+ConditionPathExists=!%h/.config/harness/chezmoi
+
+[Service]
+ExecStart=chezmoi init --apply github.com/mecattaf/dotfiles
+ExecStartPost=touch %h/.config/harness/chezmoi
+Type=oneshot
+
+[Install]
+WantedBy=graphical-session-pre.target

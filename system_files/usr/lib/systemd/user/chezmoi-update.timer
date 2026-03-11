@@ -1,0 +1,10 @@
+[Unit]
+Description=Timer for Chezmoi Update
+ConditionPathExists=%h/.config/harness/chezmoi
+
+[Timer]
+OnBootSec=5m
+OnUnitInactiveSec=1d
+
+[Install]
+WantedBy=timers.target

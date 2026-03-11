@@ -1,4 +1,6 @@
 cosign.key
 _build_*
-output
+output/
 _build-*/**
+*.img
+*.iso
