@@ -23,29 +23,27 @@ dnf -y copr enable errornointernet/quickshell
 dnf -y copr disable errornointernet/quickshell
 dnf -y --enablerepo copr:copr.fedorainfracloud.org:errornointernet:quickshell install quickshell-git
 
-# COPR: mecattaf/duoRPM
-dnf -y copr enable mecattaf/duoRPM
-dnf -y copr disable mecattaf/duoRPM
-dnf -y --enablerepo copr:copr.fedorainfracloud.org:mecattaf:duoRPM install \
-    bibata-cursor-themes \
-    wl-gammarelay-rs
-
 # COPR: mecattaf/harnessRPM
 dnf -y copr enable mecattaf/harnessRPM
 dnf -y copr disable mecattaf/harnessRPM
 dnf -y --enablerepo copr:copr.fedorainfracloud.org:mecattaf:harnessRPM install \
+    asr-rs \
     atuin \
+    bibata-cursor-themes \
     cliphist \
     eza \
     lisgd \
     mactahoe-oled \
     nwg-look \
-    starship
+    pi \
+    shpool \
+    starship \
+    wl-gammarelay-rs
 
-# COPR: julianve/open-any-terminal
-dnf -y copr enable julianve/open-any-terminal
-dnf -y copr disable julianve/open-any-terminal
-dnf -y --enablerepo copr:copr.fedorainfracloud.org:julianve:open-any-terminal install \
+# COPR: monkeygold/nautilus-open-any-terminal
+dnf -y copr enable monkeygold/nautilus-open-any-terminal
+dnf -y copr disable monkeygold/nautilus-open-any-terminal
+dnf -y --enablerepo copr:copr.fedorainfracloud.org:monkeygold:nautilus-open-any-terminal install \
     nautilus-open-any-terminal
 
 # Wayland environment
