@@ -1,6 +1,9 @@
 #!/usr/bin/bash
 
-USER=$(id -nu 1000)
+USER=$(id -nu 1000 2>/dev/null) || { echo "No UID 1000 user found, skipping"; exit 1; }
 
 # Enable lingering for the user
 loginctl enable-linger ${USER}
+
+# Patch greetd config with the correct username
+sed -i "s|^user = .*|user = \"${USER}\"|" /etc/greetd/config.toml
