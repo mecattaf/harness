@@ -57,7 +57,6 @@ dnf -y install \
     cava \
     chezmoi \
     ddcutil \
-    fastfetch \
     glycin-thumbnailer \
     input-remapper \
     nautilus-python \
