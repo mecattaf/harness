@@ -35,7 +35,7 @@ system_files/              # dropped into / at build time (systemd units, config
 - **Toolbox kept** (do NOT remove in `00-base-pre.sh`), distrobox also kept
 - **Polkit**: only `polkit` daemon, no GUI agents
 - **Login manager**: greetd + greetd-selinux (replaces sddm)
-- **quickshell-git** from COPR `errornointernet/quickshell` (NOT avengemedia/danklinux)
+- **quickshellX-git** from COPR `mecattaf/harnessRPM` (personal fork)
 - **Sway/wlroots packages**: commented out in comparison.yml, do not install
 - **Chezmoi**: point to user's personal dotfiles repo, not zdots
 
@@ -45,7 +45,7 @@ system_files/              # dropped into / at build time (systemd units, config
 |---|---|
 | `yalter/niri-git` | `niri` |
 | `zirconium/packages` | `matugen`, `iio-niri`, `valent-git` |
-| `errornointernet/quickshell` | `quickshell-git` |
+| `mecattaf/harnessRPM` | `quickshellX-git` (+ other packages, see comparison.yml) |
 | `ublue-os/packages` | `uupd` |
 | `mecattaf/duoRPM` | `bibata-cursor-themes`, `wl-gammarelay-rs` |
 | `mecattaf/harnessRPM` | `atuin`, `cliphist`, `eza`, `lisgd`, `mactahoe-oled`, `nwg-look`, `starship` (see comparison.yml for commented-out entries) |

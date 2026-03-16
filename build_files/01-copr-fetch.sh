@@ -23,11 +23,6 @@ dnf -y --enablerepo copr:copr.fedorainfracloud.org:yalter:niri-git install --set
     niri
 niri --version | grep -i -E "niri [[:digit:]]*\.[[:digit:]]* (.*\.git\..*)"
 
-# COPR: errornointernet/quickshell (NOT avengemedia/danklinux)
-dnf -y copr enable errornointernet/quickshell
-dnf -y copr disable errornointernet/quickshell
-dnf -y --enablerepo copr:copr.fedorainfracloud.org:errornointernet:quickshell install quickshell-git
-
 # COPR: mecattaf/harnessRPM
 dnf -y copr enable mecattaf/harnessRPM
 dnf -y copr disable mecattaf/harnessRPM
@@ -38,12 +33,15 @@ dnf -y --enablerepo copr:copr.fedorainfracloud.org:mecattaf:harnessRPM install \
     cliphist \
     eza \
     gws \
+    kitty \
     lisgd \
     mactahoe-oled \
     nwg-look \
     pi \
+    quickshellX-git \
     shpool \
     starship \
+    voxtral-mini-realtime-rs \
     wl-gammarelay-rs
 
 # COPR: monkeygold/nautilus-open-any-terminal

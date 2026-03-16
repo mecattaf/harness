@@ -365,8 +365,8 @@
 - matugen                        # Material You color scheme generator
 - valent-git                     # KDE Connect alternative
 
-# --- COPR: errornointernet/quickshell ---
-- quickshell-git                 # shell/panel/bar
+# --- COPR: mecattaf/harnessRPM (quickshellX) ---
+- quickshellX-git                # shell/panel/bar (fork)
 
 # --- COPR: ublue-os/packages ---
 - uupd                           # system updater

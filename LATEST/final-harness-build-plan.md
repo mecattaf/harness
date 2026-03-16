@@ -314,7 +314,6 @@ Source: adapt from `zirconium/build_files/01-theme-fetch.sh`, heavily modified
 ```
 yalter/niri-git
 zirconium/packages          # for matugen, iio-niri, valent-git
-errornointernet/quickshell  # NOT avengemedia/danklinux
 ublue-os/packages           # for uupd
 mecattaf/duoRPM
 mecattaf/harnessRPM
@@ -325,7 +324,7 @@ julianve/open-any-terminal
 - negativo17 fedora-multimedia (for codecs)
 
 **COPR packages**:
-niri, iio-niri, matugen, valent-git, quickshell-git, uupd, bibata-cursor-themes, wl-gammarelay-rs, atuin, cliphist, eza, lisgd, mactahoe-oled, nwg-look, starship, nautilus-open-any-terminal
+niri, iio-niri, matugen, valent-git, quickshellX-git, uupd, bibata-cursor-themes, wl-gammarelay-rs, atuin, cliphist, eza, lisgd, mactahoe-oled, nwg-look, starship, nautilus-open-any-terminal
 
 **DNF packages** (grouped):
 - Wayland env: brightnessctl, kanshi, playerctl, webp-pixbuf-loader, wl-clipboard, wtype

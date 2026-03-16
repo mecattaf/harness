@@ -87,6 +87,6 @@ RUN rm -rf /var/* && mkdir /var/tmp && bootc container lint
 
 LABEL containers.bootc=1 \
       org.opencontainers.image.title="Harness" \
-      org.opencontainers.image.description="Personal Fedora 44 bootc image — Niri + QuickShell + greetd" \
+      org.opencontainers.image.description="Personal Fedora 44 bootc image — Niri + QuickShellX + greetd" \
       org.opencontainers.image.source="https://github.com/mecattaf/harness" \
       org.opencontainers.image.vendor="mecattaf"
