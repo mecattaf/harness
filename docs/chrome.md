@@ -23,4 +23,3 @@
 | Use system title bars and borders | ✅ |
 
 # NOTE!
-For additoinal flags, we look at the `chrome-flag.conf` inside `/zen/files/system/etc/skel/.config` but this should be set automatically with the flatpak overrides (in skel/.local)

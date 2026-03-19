@@ -98,4 +98,4 @@ org.gnome.Lollypop
 
 ## Additional tasks
 
-The user has ~7 more modification tasks queued (hardware quirks, config files, etc.) that will be applied AFTER the package migration is done. Those are tracked separately.
+The user has additional modification tasks queued (config files, etc.) that will be applied AFTER the package migration is done. Those are tracked separately.

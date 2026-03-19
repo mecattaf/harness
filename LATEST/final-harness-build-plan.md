@@ -31,7 +31,6 @@ harness/
   build_files/kargs/          # bb-kargs pipeline
   system_files/
     etc/greetd/
-    etc/libinput/
     etc/polkit-1/rules.d/
     etc/profile.d/
     etc/systemd/resolved.conf.d/
@@ -72,9 +71,6 @@ vt = 1
 command = "niri-session"
 user = "tom"
 ```
-
-### `etc/libinput/local-overrides.quirks`
-Source: `touchpad-improvements.md` — copy verbatim (Apple Magic Trackpad 2 BT + USB sections)
 
 ### `etc/polkit-1/rules.d/10-udisks2.rules`
 Source: `blueprint/files/system/usr/etc/polkit-1/rules.d/10-udisks2.rules` — copy verbatim (wheel group mount/unlock)

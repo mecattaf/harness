@@ -41,7 +41,6 @@ dnf -y --enablerepo copr:copr.fedorainfracloud.org:mecattaf:harnessRPM install \
     quickshellX-git \
     shpool \
     starship \
-    voxtral-mini-realtime-rs \
     wl-gammarelay-rs
 
 # COPR: monkeygold/nautilus-open-any-terminal
