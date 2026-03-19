@@ -10,7 +10,8 @@
 
 Then setting up the whisperlivekit:
 ```
-  loginctl enable-linger $USER
+  # should be already done automatically
+  # loginctl enable-linger $USER
   systemctl --user daemon-reload
   systemctl --user enable --now asr-toolbox
  
