@@ -3,7 +3,7 @@
 set -xeuo pipefail
 
 cp -avf "/ctx/system_files"/. /
-mkdir -p /mnt/nas
+install -d -m 0755 /mnt/nas
 chmod 600 /etc/NetworkManager/system-connections/router-link.nmconnection
 
 sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/bootc update --quiet|' /usr/lib/systemd/system/bootc-fetch-apply-updates.service
