@@ -22,6 +22,7 @@ systemctl preset --global fcitx5.service
 systemctl preset --global gnome-keyring-daemon.service
 systemctl preset --global gcr-ssh-agent.socket
 systemctl preset --global iio-niri.service
+systemctl preset --global shpool.socket
 systemctl preset --global udiskie.service
 
 # Rebuild font cache

@@ -6,6 +6,7 @@
         signin with tailscale
         curl -fsSL https://claude.ai/install.sh | bash
 ```
+possibly use flatpak manager to enable from the start
 
 
 Then setting up the whisperlivekit:
@@ -14,8 +15,11 @@ Then setting up the whisperlivekit:
   # loginctl enable-linger $USER
   systemctl --user daemon-reload
   systemctl --user enable --now asr-toolbox
+
  
 ```
+
+
 
 Below find instructions for navidrome and immich quadlets
    
