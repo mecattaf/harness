@@ -20,9 +20,13 @@ if [ ! -e "${SRCDIR}/cache/flathub.flatpakrepo" ] ; then
 fi
 
 # Download google-cloud-cli RPM (its %post scriptlet fails in mkosi sandbox)
+# The repo isn't available to the prepare environment, so configure it inline
 if [ ! -e "${SRCDIR}/cache/google-cloud-cli.rpm" ] ; then
-	dnf5 download --destdir="${SRCDIR}/cache" --repo=google-cloud-cli google-cloud-cli
+	TMPREPO="$(mktemp -d)"
+	cp "${SRCDIR}/repos/google-cloud-cli.repo" "${TMPREPO}/"
+	dnf5 download --destdir="${SRCDIR}/cache" --setopt=reposdir="${TMPREPO}" --repo=google-cloud-cli google-cloud-cli
 	mv "${SRCDIR}"/cache/google-cloud-cli-*.rpm "${SRCDIR}/cache/google-cloud-cli.rpm"
+	rm -rf "${TMPREPO}"
 fi
 
 # Font pipeline — downloads fonts (requires network access)
