@@ -24,6 +24,15 @@ just --completions zsh | sed -E 's/([\(_" ])just/\1hjust/g' > /usr/share/zsh/sit
 just --completions fish | sed -E 's/([\(_" ])just/\1hjust/g' > /usr/share/fish/vendor_completions.d/hjust.fish
 
 # Font cache rebuild
+# Disable terra repo metadata in the final image so bootc-image-builder's
+# depsolve doesn't fail: BIB resolves file:// GPG key paths against its own
+# container filesystem, not the target image, so /etc/pki/rpm-gpg/RPM-GPG-KEY-terra44
+# is not found. When the terra metalink also returns stale metadata (checksum
+# mismatch), DNF falls back to GPG verification which fails, aborting the
+# entire ISO build. The repo is already enabled=0, so this only affects
+# metadata pre-fetching — users can still `dnf --enablerepo=terra install`.
+sed -i 's/enabled_metadata=1/enabled_metadata=0/' /etc/yum.repos.d/terra.repo
+
 fc-cache --force --really-force --system-only --verbose
 
 # Flatpak pipeline

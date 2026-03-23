@@ -6,5 +6,16 @@ bootc switch --mutate-in-place --transport registry ghcr.io/mecattaf/harness:lat
 """
 
 [customizations.installer.modules]
-enable = ["Storage", "Runtime", "Network", "Security", "Services", "Users", "Timezone"]
-disable = ["Subscription"]
+enable = [
+  "org.fedoraproject.Anaconda.Modules.Storage",
+  "org.fedoraproject.Anaconda.Modules.Runtime",
+  "org.fedoraproject.Anaconda.Modules.Network",
+  "org.fedoraproject.Anaconda.Modules.Security",
+  "org.fedoraproject.Anaconda.Modules.Services",
+  "org.fedoraproject.Anaconda.Modules.Users",
+  "org.fedoraproject.Anaconda.Modules.Timezone"
+]
+
+disable = [
+  "org.fedoraproject.Anaconda.Modules.Subscription",
+]
