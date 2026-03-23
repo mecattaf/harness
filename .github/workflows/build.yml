@@ -79,6 +79,12 @@ jobs:
         run: |
           sudo env IMAGE_FULL="localhost/${IMAGE_NAME}:${DEFAULT_TAG}" $(which just) load
 
+      - name: Free disk space for rechunk
+        run: |
+          sudo rm -rf mkosi.profiles/bootc-ostree/mkosi.output
+          sudo rm -rf /tmp/mkosi-*
+          df -h /
+
       - name: Rechunk image
         run: |
           sudo env IMAGE_FULL="localhost/${IMAGE_NAME}:${DEFAULT_TAG}" $(which just) ostree-rechunk
