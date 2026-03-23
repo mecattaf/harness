@@ -30,6 +30,114 @@ if [ ! -e "${SRCDIR}/cache/google-cloud-cli.rpm" ] ; then
 fi
 
 # Font pipeline — downloads fonts (requires network access)
-if [ -x "${SRCDIR}/build_files/fonts/install-fonts.sh" ] ; then
-	bash "${SRCDIR}/build_files/fonts/install-fonts.sh"
+FONTS_JSON="${SRCDIR}/mkosi.conf.d/fonts.json"
+if [ -f "${FONTS_JSON}" ] ; then
+	echo "==> Installing fonts from ${FONTS_JSON}..."
+
+	# Nerd fonts
+	readarray -t NERD_FONTS < <(jq -r '.["nerd-fonts"][]' "${FONTS_JSON}" 2>/dev/null)
+	if [ ${#NERD_FONTS[@]} -gt 0 ] ; then
+		echo "==> Installing nerd-fonts..."
+		NERD_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download"
+		NERD_DEST="/usr/share/fonts/nerd-fonts"
+		mkdir -p /tmp/fonts
+		for FONT in "${NERD_FONTS[@]}" ; do
+			FONT=${FONT// /}
+			if [ ${#FONT} -gt 0 ] ; then
+				rm -rf "${NERD_DEST}/${FONT}"
+				mkdir -p "${NERD_DEST}/${FONT}"
+				echo "Downloading ${FONT} from ${NERD_URL}/${FONT}.tar.xz"
+				curl -fLsS --retry 5 --create-dirs "${NERD_URL}/${FONT}.tar.xz" -o "/tmp/fonts/${FONT}.tar.xz"
+				tar -xf "/tmp/fonts/${FONT}.tar.xz" -C "${NERD_DEST}/${FONT}"
+			fi
+		done
+		rm -rf /tmp/fonts
+	fi
+
+	# Google fonts
+	readarray -t GOOGLE_FONTS < <(jq -r '.["google-fonts"][]' "${FONTS_JSON}" 2>/dev/null)
+	if [ ${#GOOGLE_FONTS[@]} -gt 0 ] ; then
+		echo "==> Installing google-fonts..."
+		GOOGLE_DEST="/usr/share/fonts/google-fonts"
+		for FONT in "${GOOGLE_FONTS[@]}" ; do
+			if [ -n "${FONT}" ] ; then
+				FONT="${FONT#"${FONT%%[![:space:]]*}"}"
+				FONT="${FONT%"${FONT##*[![:space:]]}"}"
+				rm -rf "${GOOGLE_DEST}/${FONT}"
+				mkdir -p "${GOOGLE_DEST}/${FONT}"
+				readarray -t FILE_REFS < <(
+					if JSON=$(
+						curl -fLsS --retry 5 "https://fonts.google.com/download/list?family=${FONT// /%20}" |
+						tail -n +2
+					) ; then
+						if FILE_REFS=$(echo "$JSON" | jq -c '.manifest.fileRefs[]' 2>/dev/null) ; then
+							echo "$FILE_REFS"
+						fi
+					fi
+				)
+				if [ ${#FILE_REFS[@]} -eq 0 ] ; then
+					echo "Could not find download information for ${FONT}"
+				else
+					for FILE_REF in "${FILE_REFS[@]}" ; do
+						if FILENAME=$(echo "${FILE_REF}" | jq -er '.filename' 2>/dev/null) ; then
+							if URL=$(echo "${FILE_REF}" | jq -er '.url' 2>/dev/null) ; then
+								curl -fLsS --retry 5 --create-dirs "${URL}" -o "${GOOGLE_DEST}/${FONT}/${FILENAME##*/}"
+							fi
+						fi
+					done
+				fi
+			fi
+		done
+	fi
+
+	# URL fonts
+	URL_FONTS=$(jq -c '.["url-fonts"]' "${FONTS_JSON}" 2>/dev/null)
+	if [ "${URL_FONTS}" != "null" ] && [ "${URL_FONTS}" != "[]" ] ; then
+		echo "==> Installing url-fonts..."
+		URL_DEST="/usr/share/fonts/url-fonts"
+		readarray -t URL_ENTRIES < <(echo "${URL_FONTS}" | jq -c '.[]')
+		for FONT_JSON in "${URL_ENTRIES[@]}" ; do
+			if [ -n "${FONT_JSON}" ] ; then
+				NAME=$(echo "${FONT_JSON}" | jq -r '.name' | xargs)
+				URL=$(echo "${FONT_JSON}" | jq -r '.url')
+				if [ "${NAME}" = "null" ] || [ "${URL}" = "null" ] ; then
+					echo "Error: Each url-font entry must have both 'name' and 'url' properties"
+					exit 1
+				fi
+				rm -rf "${URL_DEST}/${NAME}"
+				mkdir -p "${URL_DEST}/${NAME}"
+				TMPFILE=$(mktemp)
+				echo "Downloading ${NAME} from ${URL}"
+				curl -fLsS --retry 5 "$URL" -o "$TMPFILE"
+				case "$URL" in
+					*.zip)
+						unzip -j "$TMPFILE" -d "${URL_DEST}/${NAME}" "*.otf" "*.ttf" 2>/dev/null || true
+						unzip -q "$TMPFILE" -d "/tmp/extract_$$" 2>/dev/null || true
+						find "/tmp/extract_$$" \( -name "*.otf" -o -name "*.ttf" \) 2>/dev/null | while read -r font ; do
+							cp "$font" "${URL_DEST}/${NAME}/" 2>/dev/null || true
+						done
+						rm -rf "/tmp/extract_$$" 2>/dev/null || true
+						;;
+					*.tar.*|*.tgz|*.tbz2)
+						tar -xf "$TMPFILE" -C "${URL_DEST}/${NAME}" --wildcards --no-anchored "*.otf" "*.ttf" 2>/dev/null || true
+						;;
+					*.otf|*.ttf)
+						cp "$TMPFILE" "${URL_DEST}/${NAME}/$(basename "$URL")"
+						;;
+					*)
+						cp "$TMPFILE" "${URL_DEST}/${NAME}/$(basename "$URL")"
+						;;
+				esac
+				rm -f "$TMPFILE"
+				FONT_COUNT=$(find "${URL_DEST}/${NAME}" \( -name "*.otf" -o -name "*.ttf" \) | wc -l)
+				echo "Installed ${FONT_COUNT} font files for ${NAME}"
+			fi
+		done
+		if [ -d "${URL_DEST}" ] ; then
+			find "${URL_DEST}" -type d -exec chmod 755 {} + || true
+			find "${URL_DEST}" -type f -exec chmod 644 {} + || true
+		fi
+	fi
+
+	echo "==> All fonts installed."
 fi

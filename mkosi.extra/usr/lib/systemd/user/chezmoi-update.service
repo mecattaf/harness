@@ -1,8 +1,8 @@
 [Unit]
 Description=Chezmoi Update
+Requires=network-online.target
+After=network-online.target
 
 [Service]
-ExecStart=mkdir -p %h/.config/zirconium/chezmoi
-ExecStart=touch %h/.config/zirconium/chezmoi/chezmoi.toml
-ExecStart=sh -c 'yes s | chezmoi apply --no-tty --keep-going -S /usr/share/zirconium/zdots --verbose --config %h/.config/zirconium/chezmoi/chezmoi.toml'
+ExecStart=/bin/bash -c 'cd %h/.local/share/chezmoi && git remote get-url origin >/dev/null 2>&1 || chezmoi init mecattaf/dotfiles && chezmoi update --no-tty --keep-going'
 Type=oneshot

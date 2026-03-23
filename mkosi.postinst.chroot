@@ -35,21 +35,11 @@ sed -i 's/enabled_metadata=1/enabled_metadata=0/' /etc/yum.repos.d/terra.repo
 
 fc-cache --force --really-force --system-only --verbose
 
-# Flatpak pipeline
-if [ -x "$SRCDIR/build_files/flatpak/install-flatpaks.sh" ] ; then
-    bash "$SRCDIR/build_files/flatpak/install-flatpaks.sh"
-fi
-
 # NAS mount point
 install -d /mnt/nas
 
-# Kargs
-install -d /usr/lib/bootc/kargs.d
-cat > /usr/lib/bootc/kargs.d/harness.toml <<'KARGS'
-kargs = ["amd_iommu=off", "ttm.pages_limit=33554432", "ttm.page_pool_size=33554432"]
-KARGS
-
 # Validation: critical files must exist
+stat /usr/lib/bootc/kargs.d/harness.toml
 grep -F -e "ghcr.io/mecattaf" /etc/containers/policy.json
 grep -F -e "Comment=Central repository of Flatpak applications" /usr/share/flatpak/remotes.d/flathub.flatpakrepo
 stat /usr/share/flatpak/remotes.d/flathub.flatpakrepo

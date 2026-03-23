@@ -1,6 +1,0 @@
-[Unit]
-Description=Chezmoi Update
-
-[Service]
-ExecStart=chezmoi update --no-tty --keep-going
-Type=oneshot

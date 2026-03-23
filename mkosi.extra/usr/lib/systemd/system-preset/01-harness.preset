@@ -5,6 +5,7 @@ enable cockpit.socket
 enable enable-linger.service
 enable firewalld.service
 enable flatpak-add-flathub-repos.service
+enable flatpak-preinstall.service
 enable greetd.service
 enable mnt-nas.automount
 enable systemd-resolved.service

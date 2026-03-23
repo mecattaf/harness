@@ -1,0 +1,23 @@
+[Flatpak Preinstall com.google.Chrome]
+Branch=stable
+IsRuntime=false
+
+[Flatpak Preinstall it.mijorus.gearlever]
+Branch=stable
+IsRuntime=false
+
+[Flatpak Preinstall com.hunterwittenborn.Celeste]
+Branch=stable
+IsRuntime=false
+
+[Flatpak Preinstall it.mijorus.collector]
+Branch=stable
+IsRuntime=false
+
+[Flatpak Preinstall com.obsproject.Studio]
+Branch=stable
+IsRuntime=false
+
+[Flatpak Preinstall com.obsproject.Studio.Plugin.OBSVkCapture]
+Branch=stable
+IsRuntime=false

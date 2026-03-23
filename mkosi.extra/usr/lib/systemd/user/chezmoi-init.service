@@ -1,11 +1,9 @@
 [Unit]
-Description=Initializes Chezmoi if directory is missing
-ConditionPathExists=!%h/.config/harness/chezmoi
+Description=Initializes Chezmoi from bundled dotfiles on first login
+ConditionPathExists=!%h/.local/share/chezmoi
 
 [Service]
-ExecStart=mkdir -p %h/.config/harness/chezmoi
-ExecStart=touch %h/.config/harness/chezmoi/chezmoi.toml
-ExecStart=chezmoi apply -S /usr/share/harness/dotfiles --config %h/.config/harness/chezmoi/chezmoi.toml
+ExecStart=/bin/bash -c 'cp -a /usr/share/harness/dotfiles %h/.local/share/chezmoi && chezmoi apply'
 Type=oneshot
 
 [Install]
