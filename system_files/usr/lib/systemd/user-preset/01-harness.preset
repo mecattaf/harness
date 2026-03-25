@@ -1,8 +1,0 @@
-enable chezmoi-init.service
-enable chezmoi-update.timer
-enable fcitx5.service
-enable gnome-keyring-daemon.service
-enable gcr-ssh-agent.socket
-enable iio-niri.service
-enable shpool.socket
-enable udiskie.service
