@@ -24,15 +24,28 @@ jobs:
 
       - name: Build ISO
         id: build-iso
-        uses: osbuild/bootc-image-builder-action@main
-        with:
-          config-file: ./iso.toml
-          image: ghcr.io/mecattaf/harness:latest
-          types: anaconda-iso
-          rootfs: btrfs
+        env:
+          TARGET_IMAGE: ghcr.io/mecattaf/harness:latest
+          TARGET_CONFIG: ./iso.toml
+        run: |
+          sudo podman pull "${TARGET_IMAGE}"
+          sudo mkdir -p rpm-gpg output
+          sudo podman run --rm -it -v ./rpm-gpg:/out:Z "${TARGET_IMAGE}" bash -c 'cp /etc/pki/rpm-gpg/* /out'
+          sudo podman run \
+            --rm -it \
+            --privileged \
+            --pull=newer \
+            --security-opt label=type:unconfined_t \
+            -v "${TARGET_CONFIG}:/config.toml:ro" \
+            -v ./output/:/output \
+            -v /var/lib/containers/storage:/var/lib/containers/storage \
+            -v ./rpm-gpg/:/etc/pki/rpm-gpg/:ro \
+            quay.io/centos-bootc/bootc-image-builder:latest --type iso --rootfs btrfs --use-librepo=True \
+            "${TARGET_IMAGE}"
+          echo "output-directory=$(realpath ./output)" >> $GITHUB_OUTPUT
 
       - name: Upload ISO as artifact
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v5
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: harness-iso-${{ github.run_number }}
           path: ${{ steps.build-iso.outputs.output-directory }}

@@ -1,5 +1,4 @@
 enable auditd.service
-enable bootc-fetch-apply-updates.timer
 enable brew-setup.service
 enable cockpit.socket
 enable enable-linger.service
@@ -9,9 +8,13 @@ enable flatpak-preinstall.service
 enable greetd.service
 enable var-mnt-nas.automount
 enable systemd-resolved.service
-enable systemd-timesyncd.service
+enable ntpd-rs.service
 enable tailscaled.service
 enable uupd.timer
+
+disable systemd-timesyncd.service
+disable sshd.socket
+disable sshd.service
 
 # Containerised network services (quadlet-generated)
 enable adguard.service

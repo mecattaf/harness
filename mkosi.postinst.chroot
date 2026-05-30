@@ -8,9 +8,9 @@ rpm -ivh --noscripts --nodeps "$SRCDIR/cache/google-cloud-cli.rpm"
 install -Dpm0644 -t /usr/share/ "$SRCDIR/cache/homebrew.tar.zst"
 install -Dpm0644 -t /usr/share/flatpak/remotes.d/ "$SRCDIR/cache/flathub.flatpakrepo"
 
-niri --version | grep -i -E "niri [[:digit:]]*\.[[:digit:]]* (.*\.git\..*)"
+setfattr -n user.component -v "homebrew" /usr/share/homebrew.tar.zst
 
-sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/bootc update --quiet|' /usr/lib/systemd/system/bootc-fetch-apply-updates.service
+niri --version | grep -i -E "niri [[:digit:]]*\.[[:digit:]]* (.*\.git\..*)"
 
 install -d /usr/share/harness/
 
@@ -45,7 +45,7 @@ grep -F -e "Comment=Central repository of Flatpak applications" /usr/share/flatp
 stat /usr/share/flatpak/remotes.d/flathub.flatpakrepo
 stat /usr/share/pki/containers/harness.pub
 stat /usr/bin/luks*tpm*
-stat /usr/share/ublue-os/just/update.just
+stat /usr/share/harness/just/00-start.just
 stat /usr/bin/uupd
 stat /usr/lib/systemd/system/uupd.service
 stat /usr/lib/systemd/system/uupd.timer
