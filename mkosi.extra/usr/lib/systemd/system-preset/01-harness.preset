@@ -12,9 +12,13 @@ enable ntpd-rs.service
 enable tailscaled.service
 enable uupd.timer
 
+# Reversion from zirconium dd9f278 ("Disable sshd by default", #270):
+# harness keeps sshd enabled — raw ssh is essential for remote work here,
+# not just the tailnet path.
+enable sshd.socket
+enable sshd.service
+
 disable systemd-timesyncd.service
-disable sshd.socket
-disable sshd.service
 
 # Containerised network services (quadlet-generated)
 enable adguard.service
